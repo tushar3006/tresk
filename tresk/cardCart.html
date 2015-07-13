@@ -1,0 +1,133 @@
+<html ng-app=main>           
+<head >
+<script src=angular.min.js ></script>
+<script src=main.js></script>
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="style.css"/>
+</head>
+<title>Yumist|Card Cart</title>
+ <body>
+   <!--Header bannner -->
+   <div class="jumbotron"> </div>
+ 
+<div class="container" ng-controller="dishCtrl as dish">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!---Display and select item -->
+		  <h4 class="modal-title">Test Your Taste Buds With:  </h4>
+        </div>
+		<div class="row"> 
+        <div class="modal-body col-sm-2"  ng-repeat="val in dish.dishes ">
+      <p><cite>{{val.name}}</cite> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{val.price|currency:"&#8377"}}</p>
+      	<div class="flip-container">
+		<div class="flipper">
+		<div class="front">
+	  <img     class="img-rounded " ng-src={{val.img}}/>
+	
+	   </div>
+		<div class="back">
+			<p><cite>Origin:</cite> {{val.origin}}</p>
+			<p><cite>Ingredients:</cite> {{val.ingd}}</p>
+	   </div>
+	   </div>
+		</div>
+		<br><br>
+		<!-- add item to cardcart module-->
+		<div ng-controller="addCards as card">
+		   <input type=button class=btn  ng-click="val.count=card.getCount(1)"  value=+ /> {{val.count||0}} <input type=button class=btn ng-click="val.count=card.getCount(2)"  value=- /></div>
+<br><br>
+		   <input type="button" class="btn-info" value="Add Order " ng-click="dish.add(val,val.count)"  > 
+<!--	  {{dish.get()}}-->
+		</div>
+		<div class="modal-body col-sm-2" ><h3>Selected:</h3></div>
+	<!--	<p ng-model="dish.selected">{{dish.selected}} </p> -->
+	<div class="modal-body col-sm-1" >{{dish.get()}}
+	<p ng-repeat="x in dish.selected ">{{x}}</p><br>
+	 </div>
+ <div class="modal-body col-sm-1" >
+	<p ng-repeat="quant in dish.selected.quantity">{{"x"+quant}}</p></div>	
+     <br>	 
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<!-- create new orders for an existing customer -->
+<div class="container" ng-controller="custOrders as order" ng-hide="cart.view">
+<div class="row">
+<h3>Card Cart</h3>
+<pre class="col-sm-3">
+<form name="cardForm" ng-controller="addCards as card" ng-submit="cardForm.$valid && card.addCard(order)"  novalidate >
+<!--<blockquote><strong>{{card.cardDetails.quantity}} Stars</strong>
+</blockquote>
+<cite class="clearfix">--{{card.cardDetails.locality}}</cite>
+</blockquote>
+<cite class="clearfix">--{{card.cardDetails.address}}</cite>-->
+ <button type="button" class="btn btn-info btn-xm " data-toggle="modal" data-target="#myModal">+</button> Add Items
+
+ <p style="color:red">*Please enter the following details 
+after adding item(s).</p>
+
+Locality : 
+<input ng-model="card.cardDetails.locality" ng-value="card.cardDetails.locality" type="text"  class="form-control" placeholder="Enter landmarks " title="locality"  required/>
+Address :
+<textarea ng-model="card.cardDetails.address" class="form-control" placeholder="Address" title="Review" required></textarea>
+Comments :
+<textarea ng-model="card.cardDetails.comments" class="form-control" placeholder="Comments" title="Review" required></textarea>
+
+
+
+<input type="submit" class="btn pull-right" value="Place Order" />            
+</form>
+</pre>
+<!-- display last two orders in case of order repeat -->
+<div  ng-repeat="detail in order.orderDetails">
+<div class="col-sm-3" ng-show="detail.canView">
+<pre class=mypre>
+<cite class="clear-fix text" ng-show="detail.repeat" >       Pending order </cite>  <cite class="clear-fix" ng-hide="detail.repeat">       Completed order </cite> 
+
+<div  ng-controller="btnCtrl as btn">
+<button  class="btn-info btn-block" ng-click="btn.toggle()"    >Order</button><blockquote ng-show="btn.ctrl">{{detail.name+""}}</blockquote></div>
+
+<div ng-controller="btnCtrl as btn"><button  class="btn-info btn-block" ng-click="btn.toggle()">Quantity: </button><blockquote ng-show="btn.ctrl"><em ng-repeat="val in detail.quantity">{{val+","}}</em></blockquote></div>
+
+<div ng-controller="btnCtrl as btn"><button  class="btn-info btn-block" ng-click="btn.toggle()">Locality</button><blockquote ng-show="btn.ctrl">{{detail.locality}}</blockquote></div>
+
+<div ng-controller="btnCtrl as btn"><button  class="btn-info btn-block" ng-click="btn.toggle()">Address: </button> <blockquote ng-show="btn.ctrl">{{detail.address}}</blockquote></div>
+<div ng-controller="btnCtrl as btn"><button  class="btn-info btn-block" ng-click="btn.toggle()">Order Date:</button><blockquote ng-show="btn.ctrl">{{detail.orderDate|date}}</blockquote></div>
+<p>Comments: <blockquote>{{detail.comments}}</blockquote></p> 
+<input   ng-hide="detail.repeat" type=button class="btn" ng-click="detail.repeat=true;detail.status='pending';" value="Repeat" /><input  ng-show="detail.repeat"  type=button class="btn" value="Confirm" /> 
+<!--on confirm send data to backend--> <!-- on repeat the data selected button turns to confirm and the status of the order is changed to pending-->
+
+</pre>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+</body>
+
+
+</html>

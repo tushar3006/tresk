@@ -1,0 +1,140 @@
+#flipper
+.flip-container {
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container{
+
+height:23%;
+}
+
+
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.4s linear;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	padding:10px 10px 10px 10px;
+	transform: rotateY(180deg);
+	border:2px solid #66A3FF ;
+	border-radius:5px;
+	}
+
+ 
+.ng-invalid.ng-dirty{
+  border-color:red;
+}    
+.ng-valid.ng-dirty{
+  border-color:green;
+}  
+.btn-info{background:#66A3FF ; color:#FFFFFF;border:none; outline:0 none;}
+.btn-info:focus,.btn-info:active:focus,.btn-info.active:focus{
+transition:0.5s linear;
+background:#66A3FF ;
+outline: 0 none;
+}
+.jumbotron{
+text-align:center;
+background:#66A3FF;
+
+
+}
+.text{
+font-size:18px;
+transition:1s linear;
+color:0099cc; ;
+}
+.btn-info:hover{
+background:#0099cc;
+color:#FFFFFF;
+outline:0 none;
+}
+.btn-block{
+border-radius:5px;
+font-size:15px;
+outline:0 none;
+}
+.img-rounded{
+width:200px;
+height:140px;
+}
+.container{
+text-align:;
+
+}
+.modal-dialog {
+  width: 95%;
+
+}
+.modal-body{
+margin:0 0 0 20px;
+
+}
+
+
+.mypre{
+margin-top:2px;
+height:96 %;
+
+	}
+.mypre:hover{
+   box-shadow: 5px 5px 2px #888888;
+
+}
+	.col-sm-1{
+
+width:10%;
+
+}
+
+h3{
+color: #66A3FF;
+}
+pre{
+top:5px;}	
+pre:hover{
+
+border:1px solid #66A3FF;
+  box-shadow: 5px 5px 2px #888888;
+}	
+.btn{
+ background:#66A3FF ;  color:#FFFFFF; border-radius:50em;
+ outline:0 none;
+ 
+}
+
+blockquote{
+height:5%;
+font-size:90%;
+
+}
+body{
+ 
+
+}
